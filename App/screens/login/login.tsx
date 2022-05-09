@@ -1,18 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Colors } from '../../theme/color';
 import {widthPercentageToDP as scaleWidth} from 'react-native-responsive-screen';
 import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
+import { RectangleButton } from '../../components/RectangleButton';
+import { Register } from '../register/register';
 
 export function Login ({navigation}) {
   const [isChecked, setChecked] = useState(false);
 
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text>This is header!</Text>
+        <TouchableOpacity
+          onPress={() => Alert.alert('You pressed')}>
+          <Text style={styles.hyperLink}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(Register)}>
+          <Text style={styles.notHyperLink}>Register</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.body}>
         <View style={styles.subBody}>        
@@ -51,8 +58,15 @@ export function Login ({navigation}) {
             </TouchableOpacity>
         </View>
       </View>
-      <View styles={styles.footer}>
-        <Button onPress={()=>navigation.navigate('Register')}  title="register" />
+      <View style={styles.footer}>
+        <RectangleButton
+            title={'Login'}
+            onpress={() =>
+              Alert.alert('You Pressed!')
+            }
+            buttonColor={Colors.button}
+            txtColor={Colors.white}
+          />
       </View>
     </View>
   );
@@ -66,7 +80,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: {
-    flex: .3,
+    flex: .2,
+    flexDirection:'row',
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -107,7 +122,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: Colors.hint,
     alignSelf: 'center',
-    fontSize: 14,
+    fontSize: 20,
   },
   chkboxNvalue: {
     flexDirection: 'row',
@@ -124,5 +139,17 @@ const styles = StyleSheet.create({
   secondTextofCheckbox:{
     color:Colors.secondTextOfCheckbox,
     fontWeight:'bold'
-  }
+  },
+  hyperLink: {
+    color: Colors.button,
+    fontFamily: 'Arial',
+    margin: 10,
+    fontSize: 20,
+  },
+  notHyperLink: {
+    color: Colors.notChosen,
+    fontFamily: 'Arial',
+    margin: 10,
+    fontSize: 20,
+  },
 });

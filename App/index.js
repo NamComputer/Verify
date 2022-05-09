@@ -15,7 +15,7 @@ const MainStackScreen = () => (
       component={Login}
       options={{ headerShown: false }}
     />
-    <MainStack.Screen name="Register" component={Register} />
+    <MainStack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
   </MainStack.Navigator>
 );
 
