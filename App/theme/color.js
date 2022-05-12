@@ -7,5 +7,8 @@ export const Colors = {
     secondTextOfCheckbox:'#0386D0',
     button:'#0386D0',
     link:'#036BB9',
-    notChosen:'#A6A6A6'
+    notChosen:'#A6A6A6',
+    bottomBar:"#F3F4F5",
+    textHeader:"#557089",
+    secondButtonColor:"#F4F4F4"
   };

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Colors } from '../../theme/color';
 import {widthPercentageToDP as scaleWidth} from 'react-native-responsive-screen';
 import Checkbox from 'expo-checkbox';
@@ -62,7 +62,7 @@ export function Login ({navigation}) {
         <RectangleButton
             title={'Login'}
             onpress={() =>
-              Alert.alert('You Pressed!')
+              navigation.navigate('Home')
             }
             buttonColor={Colors.button}
             txtColor={Colors.white}

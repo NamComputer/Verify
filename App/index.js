@@ -1,59 +1,52 @@
+import { Image } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
 import { Login, Register } from './screens';
+import Home from './screens/home/home';
+import Wallet from './screens/wallet/wallet';
+import Transactions from './screens/transactions/transactions';
+import Profile from './screens/profile/profile';
+import { Colors } from './theme/color';
+import Scan from './screens/scan/scan';
 
 
-// Cấu trúc của một navigator luôn được bọc trong một thẻ <NavigationContainer> (1)
-// Trong thẻ (1) lại được bọc trong một cái <abc.Navigatoir> rồi sau đó là <abc.Screen>
-// Cách 1
-const MainStack = createStackNavigator();
-const MainStackScreen = () => (
-  <MainStack.Navigator>
-    <MainStack.Screen
-      name="Login"
-      component={Login}
-      options={{ headerShown: false }}
-    />
-    <MainStack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
-  </MainStack.Navigator>
+
+
+const Tab = createMaterialBottomTabNavigator();
+const BottomStackScreen = () => (
+  <Tab.Navigator 
+    initialRouteName="Home"
+    activeColor={Colors.dark}
+    inactiveColor={Colors.notChosen}
+    shifting={false}
+    barStyle={{ backgroundColor: Colors.bottomBar}}
+  >
+    <Tab.Screen name="Home" component={Home} options={{ headerShown: false, tabBarIcon:({color}) => (
+                                                                            <Image source={require('./assets/images/home.png')} />) }}/>
+    <Tab.Screen name="Wallet" component={Wallet} options={{ headerShown: false, tabBarIcon:({color}) => (
+                                                                            <Image source={require('./assets/images/Wallet.png')} />) }} />
+    <Tab.Screen name="Transactions" component={Transactions} options={{ headerShown: false, tabBarIcon:({color}) => (
+                                                                            <Image source={require('./assets/images/arrows.png')} />) }}/>
+    <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false, tabBarIcon:({color}) => (
+                                                                            <Image source={require('./assets/images/user.png')} />) }}/>
+  </Tab.Navigator>
 );
 
-// const ModalStack = createStackNavigator();
-// const ModalStackScreen = () => (
-//   <ModalStack.Navigator mode="modal">
-//     <ModalStack.Screen
-//       name="Main"
-//       component={MainStackScreen}
-//       options={{ headerShown: false }}
-//     />
-//     <ModalStack.Screen
-//       name="CurrencyList"
-//       component={CurrencyList}
-//       // Đổi tên header cho từng trang khác nhau bằng options
-//       options={({ navigation, route }) => ({
-//         //route đóng vai trò như navigation (VD: Navigation.pop()) 
-//         //route.params sẽ giúp ta truy cập vào thông tin title từng trang mà ta đặt code ở bên trang home thẻ <ConversionInput>
-//         //Ta nên có thêm điều kiện là route.params để nó sẽ lấy tên component mặc định khi ta ko set title 
-//         title: route.params && route.params.title,
-//         headerLeft: null,
-//         headerRight: () => (
-//           <TouchableOpacity
-//             onPress={() => navigation.pop()}
-//             style={{ paddingHorizontal: 10 }}
-//           >
-//             <Entypo name="cross" size={30} color={colors.blue} />
-//           </TouchableOpacity>
-//         ),
-//       })}
-//     />
-//   </ModalStack.Navigator>
-// );
-
+const Stack = createNativeStackNavigator();
 export default function App () {
   return (
   <NavigationContainer>
-      <MainStackScreen />
+    <Stack.Navigator options={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+      <Stack.Screen name="Home" component={BottomStackScreen}  options={{ headerShown: false }}/>
+      <Stack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
+      <Stack.Screen name="Scan" component={Scan} options={{ headerShown: false }}/>
+    </Stack.Navigator>
   </NavigationContainer>
 )};
 
