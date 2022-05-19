@@ -62,7 +62,7 @@ export function Login ({navigation}) {
         <RectangleButton
             title={'Login'}
             onpress={() =>
-              navigation.navigate('Home')
+              navigation.navigate('Main')
             }
             buttonColor={Colors.button}
             txtColor={Colors.white}

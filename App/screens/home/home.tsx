@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import Post from '../../components/Post';
+import { POSTS } from '../../data/post';
 
 
 export default function Home({navigation}) {
@@ -14,10 +16,17 @@ export default function Home({navigation}) {
         </TouchableOpacity>
       </View>
       <View style={styles.body}>
-
+        <ScrollView>
+          {POSTS.map((post,index)=>(
+              <Post post={post} key={index}/>
+          ))}
+        </ScrollView>
+        
       </View>
       <View style={styles.footer}>
-
+        {/* <Image 
+        style={{width: 50, height: 50}}
+        source={{uri:'https://instagram.fsgn4-1.fna.fbcdn.net/v/t51.2885-19/155450158_516554275974183_4042415909005765324_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fsgn4-1.fna.fbcdn.net&_nc_cat=103&_nc_ohc=fIB8LhGJopIAX8GUaQN&edm=AIQHJ4wBAAAA&ccb=7-4&oh=00_AT9RlPdXukE4xnhGz5CWr9pltffdQ63I7_kjaHFbHP0Yrw&oe=628C8F4E&_nc_sid=7b02f1'}}/> */}
       </View>
     </View>
   );
@@ -27,8 +36,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   header:{
     flex: .2,
@@ -44,8 +51,8 @@ const styles = StyleSheet.create({
     flex:.5,
     justifyContent:'center',
     flexDirection:'column',
-    alignContent: 'center',
-    alignItems: 'center',
+    alignContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   footer: {
     flex:.5,

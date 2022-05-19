@@ -3,8 +3,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 
 import { Login, Register } from './screens';
 import Home from './screens/home/home';
@@ -13,8 +11,6 @@ import Transactions from './screens/transactions/transactions';
 import Profile from './screens/profile/profile';
 import { Colors } from './theme/color';
 import Scan from './screens/scan/scan';
-
-
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -43,7 +39,7 @@ export default function App () {
   <NavigationContainer>
     <Stack.Navigator options={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-      <Stack.Screen name="Home" component={BottomStackScreen}  options={{ headerShown: false }}/>
+      <Stack.Screen name="Main" component={BottomStackScreen}  options={{ headerShown: false }}/>
       <Stack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
       <Stack.Screen name="Scan" component={Scan} options={{ headerShown: false }}/>
     </Stack.Navigator>
