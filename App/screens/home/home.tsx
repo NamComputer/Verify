@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
     justifyContent:"space-between"
   },
   body: {
-    flex:.5,
+    flex:1,
     justifyContent:'center',
     flexDirection:'column',
     alignContent: 'flex-start',
     alignItems: 'flex-start',
   },
   footer: {
-    flex:.5,
+    flex:.1,
     alignContent: 'center',
     alignItems: 'center',
   },

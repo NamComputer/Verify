@@ -7,6 +7,13 @@ import { Colors } from '../theme/color';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+const postFooterIcons = [
+  {
+    name:'Like',
+    imageURL:''
+  }
+]
+
 const Post = ({post}) => {
   return (
     <View style={styles.container}>
@@ -39,7 +46,6 @@ const PostImage = ({post}) => {
   return(
   <View>
     <Image style={styles.imagePost} source={{uri:post.imageURL}}/>
-    <Text>Hello</Text>
   </View>
 
   
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:30,
     marginBottom:30
   },
   postContainer:{
@@ -72,8 +79,8 @@ const styles = StyleSheet.create({
   },
   imagePost:{
     resizeMode:'cover',
-    height: '100%',
-    width:'100%'
+    height: 315,
+    width: 350
   },
   nameProfile:{
     color:Colors.dark,
