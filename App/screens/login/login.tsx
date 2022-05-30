@@ -4,7 +4,7 @@ import {widthPercentageToDP as scaleWidth} from 'react-native-responsive-screen'
 import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
 import { RectangleButton } from '../../components/RectangleButton';
-import { Register } from '../register/register';
+import  Register  from '../register/register';
 
 export function Login ({navigation}) {
   const [isChecked, setChecked] = useState(false);

@@ -1,10 +1,12 @@
-import { Image } from 'react-native';
+import { Image, AppRegistry } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ApolloClient, InMemoryCache, ApolloProvider  } from '@apollo/client';
 
-import { Login, Register } from './screens';
+import { Login } from './screens';
+import Register from './screens/register/register';
 import Home from './screens/home/home';
 import Wallet from './screens/wallet/wallet';
 import Transactions from './screens/transactions/transactions';
@@ -13,6 +15,11 @@ import { Colors } from './theme/color';
 import Scan from './screens/scan/scan';
 
 
+const client = new ApolloClient({
+  uri: 'https://cv-scanner.onrender.com/graphql',
+  cache: new InMemoryCache()
+
+});
 const Tab = createMaterialBottomTabNavigator();
 const BottomStackScreen = () => (
   <Tab.Navigator 
@@ -34,7 +41,7 @@ const BottomStackScreen = () => (
 );
 
 const Stack = createNativeStackNavigator();
-export default function App () {
+const Main = () => {
   return (
   <NavigationContainer>
     <Stack.Navigator options={{ headerShown: false }}>
@@ -45,4 +52,16 @@ export default function App () {
     </Stack.Navigator>
   </NavigationContainer>
 )};
+
+export default function App () {
+  return (
+  <ApolloProvider client={client}>
+      <Main />
+  </ApolloProvider>
+  )
+}
+
+AppRegistry.registerComponent('MyApplication', () => App);
+
+
 
