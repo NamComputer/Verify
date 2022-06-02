@@ -5,9 +5,24 @@ import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
 import { RectangleButton } from '../../components/RectangleButton';
 import  Register  from '../register/register';
+import gql from 'graphql-tag'
+import { useMutation } from '@apollo/client'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const LOGIN = gql`
+  mutation AddTodo($username: String!, $password: String!) {
+    login(loginInput: {
+      username: $username,
+      password: $password
+    }) {
+      accessToken
+    }
+  }
+`;
 
 export function Login ({navigation}) {
   const [isChecked, setChecked] = useState(false);
+  const [login, { data, loading, error }] = useMutation(LOGIN);
 
   return (
     <View style={styles.container}>
@@ -22,9 +37,9 @@ export function Login ({navigation}) {
         </TouchableOpacity>
       </View>
       <View style={styles.body}>
-        <View style={styles.subBody}>        
+        <View style={styles.subBody}>
           <Image source={require('../../assets/images/mail.png')} />
-          <TextInput 
+          <TextInput
             maxLength={30}
             style={styles.input}
             placeholder={'Email Adress'}
@@ -32,9 +47,9 @@ export function Login ({navigation}) {
             autoCapitalize="none"
             />
         </View>
-        <View style={styles.subBody}> 
+        <View style={styles.subBody}>
           <Image source={require('../../assets/images/lock.png')} />
-          <TextInput 
+          <TextInput
             maxLength={30}
             style={styles.input}
             placeholder={'Password'}
@@ -42,7 +57,7 @@ export function Login ({navigation}) {
             autoCapitalize="none"
             />
         </View>
-        <View style={styles.passWordSection}> 
+        <View style={styles.passWordSection}>
           <View style={styles.chkboxNvalue}>
             <Checkbox
               style={styles.checkbox}
@@ -61,11 +76,13 @@ export function Login ({navigation}) {
       <View style={styles.footer}>
         <RectangleButton
             title={'Login'}
-            onpress={() =>
+            onpress={async () => {
+              const result = await login({ variables: { username: "test", password: "test" } })
+              await AsyncStorage.setItem("token", result.data.accessToken)
               navigation.navigate('Main')
-            }
+            }}
             buttonColor={Colors.button}
-            txtColor={Colors.white}
+            txtColor={loading ? 'black' : Colors.white}
           />
       </View>
     </View>

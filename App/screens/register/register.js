@@ -73,10 +73,10 @@ render () {
           </TouchableOpacity>
         </View>
         <View style={styles.body}>
-          <View style={styles.subBody}>        
+          <View style={styles.subBody}>
             <Image source={require('../../assets/images/Name.png')} />
-            <Item> 
-              <Input 
+            <Item>
+              <Input
                 maxLength={30}
                 style={styles.input}
                 placeholder={'Your Name'}
@@ -85,10 +85,10 @@ render () {
                 />
               </Item>
           </View>
-          <View style={styles.subBody}>      
+          <View style={styles.subBody}>
               <Image source={require('../../assets/images/mail.png')} />
               <Item error={emailError}>
-                <Input 
+                <Input
                   maxLength={30}
                   style={styles.input}
                   placeholder={'Email Adress'}
@@ -99,10 +99,10 @@ render () {
                   />
               </Item>
             </View>
-            <View style={styles.subBody}> 
+            <View style={styles.subBody}>
               <Image source={require('../../assets/images/lock.png')} />
               <Item error={passwordError}>
-                <Input 
+                <Input
                   maxLength={30}
                   style={styles.input}
                   placeholder={'Password'}
@@ -113,11 +113,11 @@ render () {
                   />
               </Item>
           </View>
-          
-          <View style={styles.subBody}> 
+
+          <View style={styles.subBody}>
             <Image source={require('../../assets/images/lock.png')} />
             <Item error={confirmPasswordError}>
-              <Input 
+              <Input
                 maxLength={30}
                 style={styles.input}
                 placeholder={'ReEnter Password'}
@@ -128,7 +128,7 @@ render () {
                 />
             </Item>
           </View>
-          <View style={styles.passWordSection}>      
+          <View style={styles.passWordSection}>
               <Text style={styles.textOfCheckbox}>By joining in you are agreeing our</Text>
               <TouchableOpacity
                 onPress={() => Alert.alert('You Pressed')}>

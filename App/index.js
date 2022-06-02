@@ -3,7 +3,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ApolloClient, InMemoryCache, ApolloProvider  } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setContext } from '@apollo/client/link/context';
 
 import { Login } from './screens';
 import Register from './screens/register/register';
@@ -15,15 +17,29 @@ import UploadHistory from './screens/upload/upload';
 import { Colors } from './theme/color';
 import Scan from './screens/scan/scan';
 
+const authLink = setContext(async (_, { headers }) => {
+  const token = await AsyncStorage.getItem('token');
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const httpLink = createHttpLink({
+  uri: 'https://cv-scanner.onrender.com/graphql',
+});
 
 const client = new ApolloClient({
-  uri: 'https://cv-scanner.onrender.com/graphql',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 
 });
 const Tab = createMaterialBottomTabNavigator();
 const BottomStackScreen = () => (
-  <Tab.Navigator 
+  <Tab.Navigator
     initialRouteName="Home"
     activeColor={Colors.dark}
     inactiveColor={Colors.notChosen}
@@ -40,7 +56,7 @@ const BottomStackScreen = () => (
                                                                             <Image source={require('./assets/images/user.png')} />) }}/>
     <Tab.Screen name="Upload" component={UploadHistory} options={{ headerShown: false, tabBarIcon:({color}) => (
                                                                             <Image source={require('./assets/images/Upload.png')} />) }}/>
-  
+
   </Tab.Navigator>
 );
 
