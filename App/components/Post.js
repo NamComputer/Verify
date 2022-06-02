@@ -33,7 +33,13 @@ const Post = ({post}) => {
        <Divider width={100} orientation='vertical' />
        <PostHeader post={post} />
        <PostImage post={post} />
-       <PostFooter />
+       <View>
+          <PostFooter />
+          <Likes post={post} /> 
+          <Caption post={post} />
+          <CommentsSection post={post} />
+          <Comments post={post} />
+       </View>
     </View>
   );
 }
@@ -62,8 +68,6 @@ const PostImage = ({post}) => {
   <View>
     <Image style={styles.imagePost} source={{uri:post.imageURL}}/>
   </View>
-
-  
   )
 }
 
@@ -97,6 +101,54 @@ const Icon = ({imgStyle,imgURL}) => {
   </TouchableOpacity>
 )}
 
+const Likes = ({post}) => (
+  <View style={styles.viewLikes}>
+    <Text style={styles.like}>
+      {post.likes.toLocaleString('en')} likes
+    </Text>
+  </View>
+)
+
+const Caption = ({post}) =>{
+  return(
+    <View style={styles.captionPart}>
+      <Text style={styles.like}>
+        {post.user}
+      </Text>
+      <Text style={styles.caption}>
+        {post.caption}
+      </Text>
+  </View>
+  )
+}
+
+const CommentsSection = ({post}) =>(
+  <View style={{marginTop:5}}>
+    {!!post.comments.length &&(
+    <Text style={styles.commentPart}>
+      View {post.comments.length > 1?'all':''} {post.comments.length}{' '}
+      {post.comments.length > 1?'comments':'comment'}
+    </Text>)
+    }
+  </View>
+)
+
+const Comments = ({post}) => (
+  <View>
+    {post.comments.map((comment, index) => 
+    (
+      <View style={styles.viewLikes} key={index}>
+        <Text style={{color:'black'}}>
+          <Text style={styles.like}>{comment.user}{' '}</Text>
+          {comment.comment}
+        </Text>
+      </View>
+    ))
+    }
+  </View>
+)
+
+
 export default Post;
 
 const styles = StyleSheet.create({
@@ -119,6 +171,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   imageProfile:{
+    borderRadius:50,
     width: 50, 
     height: 50,
   },
@@ -153,5 +206,25 @@ const styles = StyleSheet.create({
     marginRight:10,
     flex:1,
     alignItems:'flex-end'
+  },
+  like:{
+    color:Colors.dark,
+    fontWeight:'600'
+  },
+  caption:{
+    marginLeft:5,
+    color:Colors.dark,
+  },
+  viewLikes:{
+    flexDirection:'row',
+    marginLeft:10
+  },
+  captionPart:{
+    flexDirection:'row',
+    marginLeft:10
+  },
+  commentPart:{
+    marginLeft:10,
+    color:Colors.hint
   }
 })

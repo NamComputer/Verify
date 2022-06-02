@@ -11,6 +11,7 @@ import Home from './screens/home/home';
 import Wallet from './screens/wallet/wallet';
 import Transactions from './screens/transactions/transactions';
 import Profile from './screens/profile/profile';
+import UploadHistory from './screens/upload/upload';
 import { Colors } from './theme/color';
 import Scan from './screens/scan/scan';
 
@@ -37,6 +38,9 @@ const BottomStackScreen = () => (
                                                                             <Image source={require('./assets/images/arrows.png')} />) }}/>
     <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false, tabBarIcon:({color}) => (
                                                                             <Image source={require('./assets/images/user.png')} />) }}/>
+    <Tab.Screen name="Upload" component={UploadHistory} options={{ headerShown: false, tabBarIcon:({color}) => (
+                                                                            <Image source={require('./assets/images/Upload.png')} />) }}/>
+  
   </Tab.Navigator>
 );
 

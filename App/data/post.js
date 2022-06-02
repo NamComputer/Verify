@@ -14,7 +14,7 @@ export const POSTS = [
             },
             {
                 user:'Vinh',
-                comment:'Amazing! Good job'
+                comment:'Amazing!'
             },
         ]
     },
@@ -26,12 +26,12 @@ export const POSTS = [
         profile_picture:USER[1].image,
         comments:[
             {
-                user:'Nam',
-                comment:'Amazing! Good job'
+                user:'An',
+                comment:'CV tốt quá em ơi! Liên hệ ngay công ty của chị nhé'
             },
             {
-                user:'Vinh',
-                comment:'Amazing! Good job'
+                user:'Bảo',
+                comment:'Liên hệ ngay với anh'
             },
         ]
     }

@@ -4,7 +4,7 @@ import {widthPercentageToDP as scaleWidth} from 'react-native-responsive-screen'
 import React, { useState, Component } from 'react';
 import { RectangleButton } from '../../components/RectangleButton';
 import { Container, Content, Input, Item } from 'native-base';
-import { graphql } from 'react-apollo';
+import { graphql } from 'graphql';
 import gql from 'graphql-tag';
 
 class Register extends Component {
@@ -155,7 +155,7 @@ render () {
 
 export default Register;
 
-// Error in here
+//Error in here
 // export default graphql(
 //   gql`
 //       signup(signupInput: {

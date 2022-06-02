@@ -11,4 +11,6 @@ export const Colors = {
     bottomBar:"#F3F4F5",
     textHeader:"#557089",
     secondButtonColor:"#F4F4F4"
+
+  
   };
