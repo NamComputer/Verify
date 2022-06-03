@@ -21,9 +21,11 @@ const LOGIN = gql`
 `;
 
 export function Login ({navigation}) {
+  
   const [isChecked, setChecked] = useState(false);
   const [login, { data, loading, error }] = useMutation(LOGIN);
-
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('')
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -45,6 +47,8 @@ export function Login ({navigation}) {
             placeholder={'Email Adress'}
             placeholderTextColor={Colors.hint}
             autoCapitalize="none"
+            onChangeText={user => setUser(user)}
+            value={user}
             />
         </View>
         <View style={styles.subBody}>
@@ -55,6 +59,8 @@ export function Login ({navigation}) {
             placeholder={'Password'}
             placeholderTextColor={Colors.hint}
             autoCapitalize="none"
+            onChangeText={password => setPassword(password)}
+            value={password}
             />
         </View>
         <View style={styles.passWordSection}>
@@ -75,14 +81,15 @@ export function Login ({navigation}) {
       </View>
       <View style={styles.footer}>
         <RectangleButton
-            title={'Login'}
+            // title={'Login'}
             onpress={async () => {
-              const result = await login({ variables: { username: "test", password: "test" } })
-              await AsyncStorage.setItem("token", result.data.accessToken)
+              const result = await login({ variables: { username: user, password: password } })
+              await AsyncStorage.setItem("token", result.data.login.accessToken)
               navigation.navigate('Main')
             }}
             buttonColor={Colors.button}
-            txtColor={loading ? 'black' : Colors.white}
+            title={loading ? 'Logging...' : 'Login'}
+
           />
       </View>
     </View>

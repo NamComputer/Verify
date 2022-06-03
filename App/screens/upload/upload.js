@@ -2,6 +2,24 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Colors } from '../../theme/color';
 
+const DATA = [
+  {
+    action: "open",
+    timeStamp : "March 28, 2022 at 4:30:21PM",
+    user: "sonnguyen@zen-s.com",
+  },
+  {
+    action: "open",
+    timeStamp : "March 28, 2022 at 4:30:21PM",
+    user: "sonnguyen@zen-s.com",
+  },
+  {
+    action: "open",
+    timeStamp : "March 28, 2022 at 4:30:21PM",
+    user: "sonnguyen@zen-s.com",
+  },
+];
+
 export default function UploadHistory() {
   return (
     <View style={styles.container}>
@@ -11,7 +29,42 @@ export default function UploadHistory() {
           <Text style={styles.title}>History</Text>   
         </View>
         <View style={styles.body}>
-      
+        {/* const { goToScreen, goToBack } = useNavigation(); */}
+  {/* console.log(getData) */}
+ 
+          <SafeAreaViewProvider>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={styles.container}>
+              <View style={styles.header} >
+              <Ionicons
+                    name="chevron-back-outline"
+                    color={"#212B36"}
+                    size={36}
+                    onPress={() => goToBack()}
+                  /> 
+              </View>
+              <Text style={styles.headerTitle}>History</Text>
+              <View>
+                <Text style={styles.subTitle}>{format(new Date(),'MMM do, yyyy')}</Text>
+              </View>
+              <View style={styles.body}>
+              <Text style={styles.text}>
+                  <FlatList
+                  data={DATA}
+                  renderItem={({item}) =>(
+                    <View style={styles.item}>
+                      <Text style={styles.title}>{item.action}</Text>
+                      <Text style={styles.title}>{item.timeStamp}</Text>
+                    </View>
+                  )}
+                  //keyExtractor={(item) => item.id}
+                  // extraData={selectedId}
+                  />
+              </Text>
+              </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </SafeAreaViewProvider>
         </View>
         </View>
       </TouchableWithoutFeedback>
@@ -37,7 +90,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   title: {
-    fontFamily: "PoppinsBold",
     fontSize: 40,
     fontWeight: "700",
     color: Colors.textHeader,
