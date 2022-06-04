@@ -1,120 +1,100 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, Text, View,TouchableWithoutFeedback, Keyboard, FlatList } from 'react-native';
 import { Colors } from '../../theme/color';
+import { format } from 'date-fns';
 
 const DATA = [
   {
-    action: "open",
-    timeStamp : "March 28, 2022 at 4:30:21PM",
-    user: "sonnguyen@zen-s.com",
+    status: "Succeeded",
+    timeStamp : "March 28, 2022",
+    
   },
   {
-    action: "open",
-    timeStamp : "March 28, 2022 at 4:30:21PM",
-    user: "sonnguyen@zen-s.com",
+    status: "Failed",
+    timeStamp : "March 28, 2022",
+    
   },
   {
-    action: "open",
-    timeStamp : "March 28, 2022 at 4:30:21PM",
-    user: "sonnguyen@zen-s.com",
+    status: "Succeeded",
+    timeStamp : "March 28, 2022",
   },
 ];
 
 export default function UploadHistory() {
   return (
-    <View style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-        <View style={styles.header} >
-          <Text style={styles.title}>History</Text>   
-        </View>
-        <View style={styles.body}>
-        {/* const { goToScreen, goToBack } = useNavigation(); */}
-  {/* console.log(getData) */}
- 
-          <SafeAreaViewProvider>
+          
+          {/* const { goToScreen, goToBack } = useNavigation(); */}
+    {/* console.log(getData) */}
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View style={styles.container}>
-              <View style={styles.header} >
-              <Ionicons
-                    name="chevron-back-outline"
-                    color={"#212B36"}
-                    size={36}
-                    onPress={() => goToBack()}
-                  /> 
-              </View>
-              <Text style={styles.headerTitle}>History</Text>
-              <View>
-                <Text style={styles.subTitle}>{format(new Date(),'MMM do, yyyy')}</Text>
-              </View>
-              <View style={styles.body}>
-              <Text style={styles.text}>
-                  <FlatList
-                  data={DATA}
-                  renderItem={({item}) =>(
-                    <View style={styles.item}>
-                      <Text style={styles.title}>{item.action}</Text>
-                      <Text style={styles.title}>{item.timeStamp}</Text>
-                    </View>
-                  )}
-                  //keyExtractor={(item) => item.id}
-                  // extraData={selectedId}
-                  />
-              </Text>
-              </View>
+                <View style={styles.container}>
+                <View style={styles.header} >
+                {/* <Ionicons
+                      name="chevron-back-outline"
+                      color={"#212B36"}
+                      size={36}
+                      onPress={() => goToBack()}
+                    />  */}
+                </View>
+                <Text style={styles.headerTitle}>History</Text>
+                <View>
+                  <Text style={styles.subTitle}>{format(new Date(),'MMM do, yyyy')}</Text>
+                </View>
+                <View style={styles.body}>
+                <Text style={styles.text}>
+                    <FlatList
+                    data={DATA}
+                    renderItem={({item}) =>(
+                      <View style={styles.item}>
+                        <Text style={styles.title}>{item.status}</Text>
+                        <Text style={styles.title}>{item.timeStamp}</Text>
+                      </View>
+                    )}
+                    //keyExtractor={(item) => item.id}
+                    // extraData={selectedId}
+                    />
+                </Text>
+                </View>
               </View>
             </TouchableWithoutFeedback>
-          </SafeAreaViewProvider>
         </View>
-        </View>
+      
       </TouchableWithoutFeedback>
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  container: {
-    flex: 1,
     paddingTop: 20,
-    backgroundColor: Colors.white,
     flexDirection: "column",
   },
-
-  body: {
-    marginTop: 4,
-  },
-  title: {
+  headerTitle: {
+    fontFamily: "PoppinsBold",
     fontSize: 40,
     fontWeight: "700",
-    color: Colors.textHeader,
+    color: Colors.dark,
+    justifyContent: "center",
+    flexDirection: "column",
+    textAlign: "center"
+  },
+  subTitle: {
+    fontFamily: "PoppinsBold",
+    fontSize: 15,
+    color: Colors.dark,
+    justifyContent: "center",
+    flexDirection: "column",
+    textAlign: "center"
   },
   btn: {
     marginTop: 100,
     justifyContent: "center",
     alignSelf: "center",
   },
-  displayName: {
-    marginTop: 20,
-    color: "white",
-    borderBottomColor: "white",
-    borderBottomWidth: 1,
-    width: "80%",
-    marginLeft: 28,
-    fontSize: 14,
-    fontFamily: "Poppins",
-    fontWeight: "700",
-  },
   header: {
     flexDirection: "row",
-    alignItems:'center',
-    textAlign:'center',
-    justifyContent:'center'
+    alignItems:'center'
   },
   button: {
     alignSelf: "center",
@@ -127,5 +107,26 @@ const styles = StyleSheet.create({
     width:"80%",
     height:"5%",
     borderRadius:10
+  },
+  body: {
+    marginTop: 4,
+    paddingLeft:20,
+    flex:1
+  },
+  text:{
+    color: Colors.dark
+  },
+  item: {
+    borderBottomWidth:5,
+    borderColor: "#24cbc2",
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    justifyContent:"space-between",
+    flexDirection:'row'
+  },
+  title: {
+    color:Colors.dark,
+    fontSize: 15,
   },
 });
