@@ -6,17 +6,24 @@ import { RectangleButton } from '../../components/RectangleButton';
 import { Container, Content, Input, Item } from 'native-base';
 import { graphql } from 'graphql';
 import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+
+
+const SIGNUP = gql`
+mutation AddtoRegister($username: String!, $password: String!){
+  signup(signupInput: {
+    username: $username,
+    password: $password
+  }) {
+    id
+    username
+  }
+}
+`;
+
+
 
 const Register = ({navigation}) => {
-    // this.state = {
-    //   email: '',
-    //   emailError: false,
-    //   password: '',
-    //   passwordError: false,
-    //   confirmPassword: '',
-    //   confirmPasswordError: false,
-    // }; 
-    
   
     const handleInputChange = (field, value) => {
       const newState = {
@@ -70,7 +77,10 @@ const Register = ({navigation}) => {
 
     // const { navigation } = this.props;
     // const { emailError, passwordError, confirmPasswordError } = this.state;
-
+    const [signup, { data, loading, error }] = useMutation(SIGNUP);
+    const [newUser, setNewUser] = useState('');
+    const [newPassword, setNewPassword] = useState('')
+    
     return (
       <Container>
         <Content>
@@ -105,10 +115,12 @@ const Register = ({navigation}) => {
                     maxLength={30}
                     style={styles.input}
                     placeholder={'Email Adress'}
-                    onChangeText={value => handleInputChange('email', value)}
+                    //onChangeText={value => handleInputChange('email', value)}
                     placeholderTextColor={Colors.hint}
                     autoCapitalize="none"
                     autoCorrect={false}
+                    onChangeText = {newUser => setNewUser(newUser)}
+                    value={newUser}
                     />
                 </Item>
               </View>
@@ -119,10 +131,12 @@ const Register = ({navigation}) => {
                     maxLength={30}
                     style={styles.input}
                     placeholder={'Password'}
-                    onChangeText={value => handleInputChange('password', value)}
+                    //onChangeText={value => handleInputChange('password', value)}
+                    onChangeText = {newPassword => setNewPassword(newPassword) }
                     placeholderTextColor={Colors.hint}
                     autoCapitalize="none"
                     autoCorrect={false}
+                    value={newPassword}
                     />
                 </Item>
             </View>
@@ -134,7 +148,8 @@ const Register = ({navigation}) => {
                   maxLength={30}
                   style={styles.input}
                   placeholder={'ReEnter Password'}
-                  onChangeText={value => handleInputChange('confirmPassword', value)}
+                  //onChangeText={value => handleInputChange('confirmPassword', value)}
+                  onChangeText = {newPassword => setNewPassword(newPassword) }
                   placeholderTextColor={Colors.hint}
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -151,12 +166,15 @@ const Register = ({navigation}) => {
           </View>
           <View style={styles.footer}>
             <RectangleButton
-                title={'Register'}
-                onpress={() =>
-                  handleSubmit()
-                }
+                onpress={async () => {
+                  // handleSubmit()
+                await signup({ variables: { username: newUser, password: newPassword } })
+                // await AsyncStorage.setItem("token", result.data.login.accessToken)
+                // navigation.navigate('Main')
+                navigation.navigate('Login')
+                }}
                 buttonColor={Colors.button}
-                txtColor={Colors.white}
+                title={loading ? 'Registering...' : 'Register'}
               />
           </View>
         </View>
