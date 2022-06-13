@@ -10,7 +10,8 @@ export const Colors = {
     notChosen:'#A6A6A6',
     bottomBar:"#F3F4F5",
     textHeader:"#557089",
-    secondButtonColor:"#F4F4F4"
+    secondButtonColor:"#F4F4F4",
+    bannerBackGround:"#3491DB",
+    sendMoneyButton:'#F8BB18'
 
-  
   };
