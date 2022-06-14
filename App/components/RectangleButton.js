@@ -8,6 +8,8 @@ export const RectangleButton = ({
   onpress,
   buttonColor,
   txtColor,
+  recWidth,
+  recBorderColor
 }) => {
   return (
     <TouchableOpacity onPress={onpress}>
@@ -15,7 +17,7 @@ export const RectangleButton = ({
         style={[
           styles.rectangleButton,
           styles.shadow,
-          {backgroundColor: buttonColor},
+          {backgroundColor: buttonColor, width: recWidth, borderColor: recBorderColor},
         ]}>
         <Text style={[styles.btnText, {color: txtColor}]}>{title}</Text>
       </View>
@@ -29,16 +31,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: Colors.button,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  CustomRectangleButton: {
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: Colors.button,
-    justifyContent: 'center',
-    alignItems: 'center',
+    margin:10
   },
   shadow: {
     shadowColor: Colors.dark,

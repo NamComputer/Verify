@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   headerTitle: {
-    fontFamily: "PoppinsBold",
     fontSize: 40,
     fontWeight: "700",
     color: Colors.dark,
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   subTitle: {
-    fontFamily: "PoppinsBold",
     fontSize: 15,
     color: Colors.dark,
     justifyContent: "center",

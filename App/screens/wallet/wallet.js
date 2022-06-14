@@ -1,25 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity,ScrollView } from 'react-native';
 import { Colors } from '../../theme/color';
 import { USER } from '../../data/users';
 import { RectangleButton } from '../../components/RectangleButton';
+import { TRANSACTIONS } from '../../data/transactions';
+import Transactions from '../../components/TransactionsList';
+
+
+
+
 
 export default function Wallet() {
   return (
     <View style = {styles.container}>
       <View style={styles.header}>
-        <Text style={styles.textHeader}>Dashboard</Text>
-        <Image style={styles.imageProfile} source={{uri:USER[0].image}} /> 
-        <View style={styles.subTextHeader}>
-          <Text>Hi, {USER[0].user}!</Text>  
-        </View>   
+        <View style={styles.leftPart}>
+          <Text style={styles.textHeader}>Dashboard</Text>
+          <Text style={styles.userName}>Hi, {USER[0].user}!</Text>  
+          <Text style={styles.balance}>Total Balance</Text>
+          <Text style={styles.balanceValue}>$124.57</Text>
+        </View>
+        <View style={styles.rightPart}>
+          <Image style={styles.imageProfile} source={{uri:USER[0].image}} /> 
+          <TouchableOpacity onPress={()=>Alert.alert('You pressed notification')}>
+            <Image source={require('../../assets/images/notifications.png')}/>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.body}>
-        <RectangleButton title={'Send Money'} onpress={() => Alert.alert('Sent Money')} buttonColor={Colors.sendMoneyButton} txtColor={Colors.white} />
-        <RectangleButton title={'Withdraw'} onpress={() => Alert.alert('Withdraw')} buttonColor={Colors.sendMoneyButton} txtColor={Colors.white} />
+      <View style={styles.body}> 
+        <RectangleButton title={'🔼 Send Money'} onpress={() => Alert.alert('Send Money')} buttonColor={Colors.sendMoneyButton} txtColor={Colors.dark} recWidth={160} recBorderColor={Colors.sendMoneyButton}/>
+        <RectangleButton title={'🔽 Withdraw'} onpress={() => Alert.alert('Withdraw')} buttonColor={Colors.bannerBackGround} txtColor={Colors.white} recWidth={160} recBorderColor={Colors.bannerBackGround}/>
       </View>
       <View style={styles.footer}>
-        <Text>Open up App.tsx to start working on your app 1!</Text>
+        <ScrollView>
+          {TRANSACTIONS.map((transactions,index)=>(
+              <Transactions transactions={transactions} key={index}/>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -33,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: {
-    flex: .4,
+    flex: .5,
     flexDirection:'row',
     alignContent: 'center',
     alignItems: 'center',
@@ -43,13 +59,12 @@ const styles = StyleSheet.create({
 
   },
   body: {
-    flex:.5,
+    flex:.1,
     justifyContent:'center',
     flexDirection:'row',
     alignContent: 'center',
     alignItems: 'center',
-    padding:100
-
+    marginTop:20
   },
   footer: {
     flex:.5,
@@ -60,15 +75,41 @@ const styles = StyleSheet.create({
     borderRadius:50,
     width: 50, 
     height: 50,
+    marginRight:20,
+    marginBottom:80
   },
   textHeader:{
     color:Colors.white,
-    fontWeight:'500'
+    fontWeight:'500',
+    fontSize:20
   },
   subTextHeader:{
-    justifyContent:'center',
+    color:Colors.dark
+  },
+  leftPart:{
+    marginLeft:20,
+    marginTop:40
+  },
+  rightPart:{
+    marginTop:40,
     flexDirection:'column',
     alignContent: 'center',
     alignItems: 'center',
+  },
+  userName:{
+    marginTop:50,
+    fontWeight:'200',
+    color:Colors.white,
+    fontSize:16
+  },
+  balance:{
+    color:Colors.white,
+    fontSize: 30,
+    fontWeight:'500'
+  },
+  balanceValue:{
+    color:Colors.white,
+    fontSize: 40,
+    fontWeight:'600' 
   }
 });
