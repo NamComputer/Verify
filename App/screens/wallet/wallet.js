@@ -6,9 +6,6 @@ import { TRANSACTIONS } from '../../data/transactions';
 import Transactions from '../../components/TransactionsList';
 
 
-
-
-
 export default function Wallet() {
   return (
     <View style = {styles.container}>
@@ -31,11 +28,17 @@ export default function Wallet() {
         <RectangleButton title={'🔽 Withdraw'} onpress={() => Alert.alert('Withdraw')} buttonColor={Colors.bannerBackGround} txtColor={Colors.white} recWidth={160} recBorderColor={Colors.bannerBackGround}/>
       </View>
       <View style={styles.footer}>
+        {TRANSACTIONS.length < 1 ? 
+        <View style={styles.containerNoTransactions}>
+          <Image source={require('../../assets/images/empty_illustration.png')}/>
+          <Text style={styles.noTransactions}>There's no transactions till now! </Text>
+        </View>  
+          :
         <ScrollView>
           {TRANSACTIONS.map((transactions,index)=>(
               <Transactions transactions={transactions} key={index}/>
           ))}
-        </ScrollView>
+        </ScrollView>}
       </View>
     </View>
   );
@@ -56,7 +59,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: Colors.bannerBackGround,
     width:'100%'
-
   },
   body: {
     flex:.1,
@@ -111,5 +113,15 @@ const styles = StyleSheet.create({
     color:Colors.white,
     fontSize: 40,
     fontWeight:'600' 
+  },
+  noTransactions:{
+    color:Colors.dark,
+    fontSize:20,
+  },
+  containerNoTransactions:{
+    marginTop:60,
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center'
   }
 });

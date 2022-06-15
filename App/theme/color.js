@@ -12,6 +12,7 @@ export const Colors = {
     textHeader:"#557089",
     secondButtonColor:"#F4F4F4",
     bannerBackGround:"#3491DB",
-    sendMoneyButton:'#F8BB18'
+    sendMoneyButton:'#F8BB18',
+    red:'#FF0000'
 
   };
