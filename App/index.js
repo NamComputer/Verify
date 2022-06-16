@@ -16,7 +16,7 @@ import Profile from './screens/profile/profile';
 import UploadHistory from './screens/upload/upload';
 import { Colors } from './theme/color';
 import Scan from './screens/scan/scan';
-
+import EditProfile from './screens/profile/editprofile';
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('token');
 
@@ -71,6 +71,7 @@ const Main = () => {
       <Stack.Screen name="Main" component={BottomStackScreen}  options={{ headerShown: false }}/>
       <Stack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
       <Stack.Screen name="Scan" component={Scan} options={{ headerShown: false }}/>
+      <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
     </Stack.Navigator>
   </NavigationContainer>
 )};

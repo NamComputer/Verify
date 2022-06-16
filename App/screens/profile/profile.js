@@ -24,7 +24,7 @@ export default function Profile({navigation}) {
           </TouchableOpacity>
       </View>
       <View style={styles.body}>
-          <RectangleButton title={'👤　My Info'} onpress={()=>Alert.alert('You pressed!')} buttonColor={Colors.bottomBar} txtColor={Colors.dark} recBorderColor={Colors.bottomBar} recWidth={300} />
+          <RectangleButton title={'👤　My Info'} onpress={()=>navigation.navigate('EditProfile')} buttonColor={Colors.bottomBar} txtColor={Colors.dark} recBorderColor={Colors.bottomBar} recWidth={300} />
           <RectangleButton title={'💼　CV Management'} onpress={()=>Alert.alert('You pressed!')} buttonColor={Colors.bottomBar} recBorderColor={Colors.bottomBar} recWidth={300} />
           <RectangleButton title={'⚙️　Settings'} onpress={()=>Alert.alert('You pressed!')} buttonColor={Colors.bottomBar} recBorderColor={Colors.bottomBar} recWidth={300} />
       </View>
