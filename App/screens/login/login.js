@@ -89,6 +89,8 @@ export function Login ({navigation}) {
             }}
             buttonColor={Colors.button}
             title={loading ? 'Logging...' : 'Login'}
+            recWidth={300}
+            recBorderColor={Colors.button}
 
           />
       </View>

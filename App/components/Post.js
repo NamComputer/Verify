@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity,Dimensions } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { Colors } from '../theme/color';
@@ -27,15 +28,60 @@ const postFooterIcons = [
   }
 ]
 
+
+
 const Post = ({post}) => {
+
+  function pressOrNotPress(){
+    
+    if (likes - preLikes == 2){
+      setPress(false);
+      setLikes(likes-1)
+    }
+    if (likes - preLikes == 1){
+      setPress(false);
+      setLikes(likes-1)
+    }
+    else{
+      setPress(true);
+      setLikes(likes+1)
+    }
+  }
+  
+  const [likes, setLikes] = useState(0)
+  const [preLikes, setPreLikes] = useState(likes)
+  const [press, setPress] = useState(false)
   return (
     <View style={styles.container}>
        <Divider width={100} orientation='vertical' />
        <PostHeader post={post} />
        <PostImage post={post} />
        <View>
-          <PostFooter />
-          <Likes post={post} /> 
+          <View style={styles.postFooter}>
+            <View style={styles.leftPostFooter}>
+             <TouchableOpacity  onPress={() => {pressOrNotPress()}}> 
+             {
+             press ? <Icon 
+                imgStyle={styles.footerIcon} imgURL={postFooterIcons[0].likedImageURL}
+              />:
+              <Icon 
+                imgStyle={styles.footerIcon} imgURL={postFooterIcons[0].imageURL}
+              />}
+            </TouchableOpacity>
+              <Icon 
+                imgStyle={styles.footerIcon} imgURL={postFooterIcons[1].imageURL}
+              />
+              {/* <Icon 
+                imgStyle={styles.footerIcon} imgURL={postFooterIcons[2].imageURL}
+              /> */}
+            </View>
+            <View style={styles.rightPostFooter}>
+              <Icon 
+                imgStyle={styles.footerIcon} imgURL={postFooterIcons[3].imageURL}
+              />
+            </View>
+          </View>
+          <Likes post={post} like={likes} />
           <Caption post={post} />
           <CommentsSection post={post} />
           <Comments post={post} />
@@ -71,40 +117,41 @@ const PostImage = ({post}) => {
   )
 }
 
-const PostFooter = () =>{
-  return(
-    <View style={styles.postFooter}>
-      <View style={styles.leftPostFooter}>
-        <Icon 
-          imgStyle={styles.footerIcon} imgURL={postFooterIcons[0].imageURL}
-        />
-        <Icon 
-          imgStyle={styles.footerIcon} imgURL={postFooterIcons[1].imageURL}
-        />
-        <Icon 
-          imgStyle={styles.footerIcon} imgURL={postFooterIcons[2].imageURL}
-        />
-      </View>
-      <View style={styles.rightPostFooter}>
-        <Icon 
-          imgStyle={styles.footerIcon} imgURL={postFooterIcons[3].imageURL}
-        />
-      </View>
-    </View>
-  )
-}
+// const PostFooter = () =>{
+//   return(
+//     <View style={styles.postFooter}>
+//       <View style={styles.leftPostFooter}>
+//         <Icon 
+//           imgStyle={styles.footerIcon} imgURL={postFooterIcons[0].imageURL}
+//         />
+//         <Icon 
+//           imgStyle={styles.footerIcon} imgURL={postFooterIcons[1].imageURL}
+//         />
+//         <Icon 
+//           imgStyle={styles.footerIcon} imgURL={postFooterIcons[2].imageURL}
+//         />
+//       </View>
+//       <View style={styles.rightPostFooter}>
+//         <Icon 
+//           imgStyle={styles.footerIcon} imgURL={postFooterIcons[3].imageURL}
+//         />
+//       </View>
+//     </View>
+//   )
+// }
 
 const Icon = ({imgStyle,imgURL}) => {
   return(
-  <TouchableOpacity>
     <Image style={imgStyle} source={{uri:imgURL}}/>
-  </TouchableOpacity>
 )}
 
-const Likes = ({post}) => (
+
+
+const Likes = ({post, like}) => (
   <View style={styles.viewLikes}>
     <Text style={styles.like}>
-      {post.likes.toLocaleString('en')} likes
+      {/* {post.likes.toLocaleString('en')} likes */}
+      {like} likes
     </Text>
   </View>
 )

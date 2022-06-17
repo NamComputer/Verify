@@ -175,6 +175,8 @@ const Register = ({navigation}) => {
                 }}
                 buttonColor={Colors.button}
                 title={loading ? 'Registering...' : 'Register'}
+                recWidth={300}
+                recBorderColor={Colors.button}
               />
           </View>
         </View>
