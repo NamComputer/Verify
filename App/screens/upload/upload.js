@@ -26,9 +26,9 @@ export default function UploadHistory() {
   return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          
+    
           {/* const { goToScreen, goToBack } = useNavigation(); */}
-    {/* console.log(getData) */}
+          {/* console.log(getData) */}
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <Text style={styles.text}>

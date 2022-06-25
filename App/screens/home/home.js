@@ -11,12 +11,16 @@ export default function Home({navigation}) {
          <Image source={require('../../assets/images/camera.png')} />
         </TouchableOpacity> 
          <Text style={styles.textHeaderBar}>Verify</Text>
-        <TouchableOpacity>
+         <TouchableOpacity onPress={()=>navigation.navigate('SelectPhotos')}>
+          <Image source={require('../../assets/images/add.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity >
           <Image source={require('../../assets/images/messenger.png')} />
         </TouchableOpacity>
+
       </View>
       <View style={styles.body}>
-        <ScrollView>
+        <ScrollView horizontal={false}>
           {POSTS.map((post,index)=>(
               <Post post={post} key={index}/>
           ))}
@@ -62,7 +66,7 @@ const styles = StyleSheet.create({
   textHeaderBar:{
     fontSize:20,
     fontWeight:'bold',
-    marginLeft:100,
+    marginLeft:120,
     marginRight:100
   }
 });
