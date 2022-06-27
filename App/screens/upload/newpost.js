@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Image, TextInput, View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
+import { Image, TextInput, View, StyleSheet, TouchableOpacity, Text, Button, Alert } from 'react-native';
 import { Colors } from '../../theme/color';
 import * as Yup from 'yup';
-import  { Formik } from 'formik'
+import  { Form, Formik } from 'formik'
 import { Divider } from 'react-native-elements';
 
 
 export default function NewPostScreen ({navigation,route}) {
 
     const placeholderImage = 'https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg'
-    const uploadPostSchema = Yup.object().shape({
-      imageUrl: Yup.string().url().required('A Url is required'),
+    const uploadPostSchema = Yup.object({
+      imageUrl: Yup.string().url('Invalid').required('A Url is required'),
       caption: Yup.string().max(2200,'Caption has reached the limit')
     })
 
@@ -25,10 +25,38 @@ export default function NewPostScreen ({navigation,route}) {
           <Text style={styles.headerText}>NEW POST</Text>
         </View>
         {image != null ?
-        <Image
-          source={{ uri: image }}
-          style={{ resizeMode: 'contain', aspectRatio: 1, width: 250 }}
-        /> :
+        <Formik
+        initialValues={{caption:'', imageURL: ''}}
+        validationSchema={uploadPostSchema}
+        validateOnMount={true}
+        onSubmit={
+            Alert.alert('You pressed3')
+        }
+       >
+        {(props)=>(
+          <View>
+            <View style={styles.imageCaption}>
+              <Image
+                source={{ uri: image }}
+                style={styles.image}
+              />          
+              <TextInput placeholder='Write a caption...' 
+              placeholderTextColor={Colors.hint} 
+              multiline={true}
+              onChangeText={props.handleChange('caption')}
+              onBlur={props.handleBlur('caption')}
+              value={props.values.caption}
+              />
+            </View>
+            <Divider width={100}  orientation='vertical' />
+              { props.errors.imageURL && (
+                <Text style={styles.errors}>{props.errors.imageURL}</Text>
+              )}
+            <Button title="Share" onPress={props.onSubmit}></Button>
+            </View>
+          )}
+      </Formik>
+        :
        <Formik
         initialValues={{caption:'', imageURL: ''}}
         onSubmit={(value) => console.log(value)}
@@ -48,7 +76,6 @@ export default function NewPostScreen ({navigation,route}) {
             onBlur={handleBlur('caption')}
             value={values.caption}
             />
-
           </View>
           <Divider width={100}  orientation='vertical' />
           <TextInput 
@@ -62,11 +89,11 @@ export default function NewPostScreen ({navigation,route}) {
             {errors.imageURL && (
               <Text style={styles.errors}>{errors.imageURL}</Text>
             )} 
-            <Button onPress={handleSubmit} title="Share"></Button>
+            <Button onPress={handleSubmit} title="Share" />
           </>
         )}
-       </Formik>}
-        
+       </Formik> */}
+       
         {/* <TextInput
           multiline
           style={{ flex: 1, paddingHorizontal: 26, color:Colors.dark }}
@@ -75,12 +102,10 @@ export default function NewPostScreen ({navigation,route}) {
             this.setState({ text });
             this.props.navigation.setParams({ text });
           }}
-        /> */}
+        />
       </View>
     );
   }
-
-
 
 
 const styles = StyleSheet.create({
@@ -121,6 +146,10 @@ const styles = StyleSheet.create({
   errors:{
     color:Colors.red,
     fontSize:20
-  }
+  },
+  backArrow:{
+    width:50,
+    height:50,
+  },
 });
 
