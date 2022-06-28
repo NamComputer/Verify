@@ -26,13 +26,13 @@ export default function NewPostScreen ({navigation,route}) {
         </View>
         {image != null ?
         <Formik
-        initialValues={{caption:'', imageURL: ''}}
-        validationSchema={uploadPostSchema}
+        initialValues={{caption:''}}
+        // validationSchema={null}
         validateOnMount={true}
-        onSubmit={
-            Alert.alert('You pressed3')
-        }
-       >
+        validator={() => ({})}
+        onSubmit={()=>
+            console.log('hello')}
+            >
         {(props)=>(
           <View>
             <View style={styles.imageCaption}>
@@ -92,9 +92,10 @@ export default function NewPostScreen ({navigation,route}) {
             <Button onPress={handleSubmit} title="Share" />
           </>
         )}
-       </Formik> */}
+       </Formik> 
+       }
        
-        {/* <TextInput
+        {/* /* <TextInput
           multiline
           style={{ flex: 1, paddingHorizontal: 26, color:Colors.dark }}
           placeholder="Add a neat description..."
@@ -102,7 +103,7 @@ export default function NewPostScreen ({navigation,route}) {
             this.setState({ text });
             this.props.navigation.setParams({ text });
           }}
-        />
+        /> */}
       </View>
     );
   }
