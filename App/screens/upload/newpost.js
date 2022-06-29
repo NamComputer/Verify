@@ -11,9 +11,11 @@ export default function NewPostScreen ({navigation,route}) {
     const placeholderImage = 'https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg'
     const uploadPostSchema = Yup.object({
       imageUrl: Yup.string().url('Invalid').required('A Url is required'),
-      caption: Yup.string().max(2200,'Caption has reached the limit')
+      caption: Yup.string().max(10,'Caption has reached the limit')
     })
-
+    const uploadNonImageUrlPostSchema = Yup.object({
+      caption: Yup.string().max(10,'Caption has reached the limit')
+    })
     const [thumbnailUrl, setThumbnailUrl] = useState(placeholderImage)
     const {image} = route.params;
     return (
@@ -26,36 +28,41 @@ export default function NewPostScreen ({navigation,route}) {
         </View>
         {image != null ?
         <Formik
-        initialValues={{caption:''}}
-        // validationSchema={null}
+        initialValues={{caption:'', imageURL: ''}}
+        onSubmit={(value) => console.log(value)}
+        validationSchema={uploadNonImageUrlPostSchema}
         validateOnMount={true}
-        validator={() => ({})}
-        onSubmit={()=>
-            console.log('hello')}
-            >
-        {(props)=>(
-          <View>
-            <View style={styles.imageCaption}>
-              <Image
-                source={{ uri: image }}
-                style={styles.image}
-              />          
-              <TextInput placeholder='Write a caption...' 
-              placeholderTextColor={Colors.hint} 
-              multiline={true}
-              onChangeText={props.handleChange('caption')}
-              onBlur={props.handleBlur('caption')}
-              value={props.values.caption}
-              />
-            </View>
-            <Divider width={100}  orientation='vertical' />
-              { props.errors.imageURL && (
-                <Text style={styles.errors}>{props.errors.imageURL}</Text>
-              )}
-            <Button title="Share" onPress={props.onSubmit}></Button>
-            </View>
-          )}
-      </Formik>
+       >
+        {({handleBlur, handleChange, handleSubmit, values, errors, isValid}) => (
+          <>
+          <View style={styles.imageCaption}>
+            <Image style={styles.image} 
+            source={{uri:thumbnailUrl ? thumbnailUrl : placeholderImage}}/>
+          
+            <TextInput placeholder='Write a caption...' 
+            placeholderTextColor={Colors.hint} 
+            multiline={true}
+            onChangeText={handleChange('caption')}
+            onBlur={handleBlur('caption')}
+            value={values.caption}
+            />
+          </View>
+          <Divider width={100}  orientation='vertical' />
+          {/* <TextInput 
+            onChange={e => setThumbnailUrl(e.nativeEvent.text)}
+            placeholder='Enter Image URL' 
+            placeholderTextColor={Colors.hint} 
+            onChangeText={handleChange('imageURL')}
+            onBlur={handleBlur('imageURL')}
+            value={values.imageURL}
+            /> */}
+            {errors.caption && (
+              <Text style={styles.errors}>{errors.caption}</Text>
+            )} 
+            <Button onPress={handleSubmit} title="Share" />
+          </>
+        )}
+       </Formik> 
         :
        <Formik
         initialValues={{caption:'', imageURL: ''}}

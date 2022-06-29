@@ -4,6 +4,8 @@ import { StyleSheet, Text, View,TouchableOpacity, Image } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import getPermission from "../../utils/getPermission";
+import { ImageBroweser}  from 'expo-image-picker-multiple'
+
 
 const options = {
   allowsEditing: true
@@ -13,13 +15,17 @@ export default class SelectPhotoScreen extends Component {
   state = {};
 
   _selectPhoto = async () => {
-    const status = await getPermission(Permissions.CAMERA_ROLL);
-    if (status) {
-      const result = await ImagePicker.launchImageLibraryAsync(options);
-      if (!result.cancelled) {
-        this.props.navigation.navigate("NewPost", { image: result.uri });
-      }
-    }
+    // const status = await getPermission(Permissions.CAMERA_ROLL);
+    // if (status) {
+    //   const result = await ImagePicker.launchImageLibraryAsync(options);
+    //   // console.log(result)
+    //   if (!result.cancelled) {
+    //     this.props.navigation.navigate("NewPost", { image: result.uri });
+    //   }
+    // }
+    //const result = await ImagePicker.launchImageLibraryAsync(allowsEditing: true)
+
+    this.props.navigation.navigate("TakeMultiPhotos")
   };
 
   _next = async () => {

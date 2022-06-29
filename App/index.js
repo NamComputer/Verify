@@ -19,6 +19,7 @@ import Scan from './screens/scan/scan';
 import EditProfile from './screens/profile/editprofile';
 import SelectPhotoScreen from './screens/takephotos/takephotos';
 import NewPostScreen from './screens/upload/newpost';
+import TakeMultiPhotos from './screens/takephotos/takemultiplephotos';
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('token');
@@ -77,6 +78,7 @@ const Main = () => {
       <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
       <Stack.Screen name="SelectPhotos" component={SelectPhotoScreen} options={{ headerShown: false }} />
       <Stack.Screen name="NewPost" component={NewPostScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="TakeMultiPhotos" component={TakeMultiPhotos} options={{ headerShown: false }} />
     </Stack.Navigator>
   </NavigationContainer>
 )};
