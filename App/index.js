@@ -33,7 +33,7 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: 'https://cv-scanner.onrender.com/graphql',
+  uri: 'http://45.32.108.205/graphql',
 });
 
 const client = new ApolloClient({
@@ -69,7 +69,7 @@ const Main = () => {
   return (
   <NavigationContainer>
     <Stack.Navigator 
-    initialRouteName="Main"
+    // initialRouteName="Main"
     options={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
       <Stack.Screen name="Main" component={BottomStackScreen}  options={{ headerShown: false }}/>

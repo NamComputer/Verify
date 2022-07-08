@@ -61,6 +61,8 @@ export function Login ({navigation}) {
             autoCapitalize="none"
             onChangeText={password => setPassword(password)}
             value={password}
+            secureTextEntry={true}
+            password={true}
             />
         </View>
         <View style={styles.passWordSection}>

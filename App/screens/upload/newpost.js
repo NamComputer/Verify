@@ -4,9 +4,34 @@ import { Colors } from '../../theme/color';
 import * as Yup from 'yup';
 import  { Form, Formik } from 'formik'
 import { Divider } from 'react-native-elements';
+import { FlatList } from 'react-native-gesture-handler';
+import gql from 'graphql-tag'
+import { useMutation } from '@apollo/client'
 
+// const UPLOAD = gql`
+//   mutation AddTodo($id:ID!,$content: String!, $caption: String!, $createdAt: DateTime!) {
+//     uploadCV(uploadCVInput: {
+//       id: $id,
+//       content: $content,
+//       caption: $caption,
+//       createdAt: $createdAt
+//     }) {
+//       id
+//       name 
+//       content 
+//       createdAt
+//       caption
+//       updatedAt
+//       owner
+//       likes
+//       comments
+//     }
+//   }
+// `;
 
 export default function NewPostScreen ({navigation,route}) {
+
+  // const [uploadcv, { data, loading, error }] = useMutation(UPLOAD);
 
     const placeholderImage = 'https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg'
     const uploadPostSchema = Yup.object({
@@ -16,8 +41,9 @@ export default function NewPostScreen ({navigation,route}) {
     const uploadNonImageUrlPostSchema = Yup.object({
       caption: Yup.string().max(10,'Caption has reached the limit')
     })
-    const [thumbnailUrl, setThumbnailUrl] = useState(placeholderImage)
+    
     const {image} = route.params;
+    const [thumbnailUrl, setThumbnailUrl] = useState(image)
     return (
       <View style={styles.container}>
         <View style={styles.header}>     
@@ -36,9 +62,19 @@ export default function NewPostScreen ({navigation,route}) {
         {({handleBlur, handleChange, handleSubmit, values, errors, isValid}) => (
           <>
           <View style={styles.imageCaption}>
-            <Image style={styles.image} 
-            source={{uri:thumbnailUrl ? thumbnailUrl : placeholderImage}}/>
-          
+            
+            {/* <Image style={styles.image} 
+            source={{uri:thumbnailUrl ? thumbnailUrl : placeholderImage}}/> */}
+            <FlatList 
+              horizontal={true}
+              data={image}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <Image style={styles.image} 
+                source={{uri:item.content}}/> 
+              )}
+            />
+            {/* source={{uri:`data:image/gif;base64,{item.content}`}} */}
             <TextInput placeholder='Write a caption...' 
             placeholderTextColor={Colors.hint} 
             multiline={true}
@@ -143,9 +179,10 @@ const styles = StyleSheet.create({
     fontWeight:'500'
   },
   image:{
-    width:200,
-    height:200,
-    marginBottom:10
+    width:150,
+    height:150,
+    marginBottom:10,
+    marginRight:20
   },
   imageCaption:{
   flexDirection:'row',

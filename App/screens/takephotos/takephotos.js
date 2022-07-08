@@ -5,6 +5,7 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import getPermission from "../../utils/getPermission";
 import { ImageBroweser}  from 'expo-image-picker-multiple'
+import * as FileSystem from 'expo-file-system';
 
 
 const options = {
@@ -15,6 +16,19 @@ export default class SelectPhotoScreen extends Component {
   state = {};
 
   _selectPhoto = async () => {
+    const status = await getPermission(Permissions.CAMERA_ROLL);
+    if (status) {
+      const result = await ImagePicker.launchImageLibraryAsync(options);
+     
+      if (!result.cancelled) {
+        
+        const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
+        //this.props.navigation.navigate("NewPost", { image: result.uri });
+      }
+    }
+  };
+
+  _selectMultiplePhoto = async () => {
     // const status = await getPermission(Permissions.CAMERA_ROLL);
     // if (status) {
     //   const result = await ImagePicker.launchImageLibraryAsync(options);
@@ -53,6 +67,9 @@ export default class SelectPhotoScreen extends Component {
         </TouchableOpacity>
         <Text onPress={this._selectPhoto} style={styles.text}>
           Select Photo From Library
+        </Text>
+        <Text onPress={this._selectMultiplePhoto} style={styles.text}>
+          Select Multiple Photos From Library
         </Text>
         <Text onPress={this._next} style={styles.text}>
           Select Photo From ImageURL

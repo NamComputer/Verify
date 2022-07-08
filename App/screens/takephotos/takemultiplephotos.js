@@ -54,6 +54,8 @@ import * as MediaLibrary from 'expo-media-library'
 import ImageTile from './imagetitle'
 import getPermission from "../../utils/getPermission";
 import * as Permissions from "expo-permissions";
+import * as FileSystem from 'expo-file-system';
+import { Image, ImageStore, ImageEditor } from 'react-native'
 
 const { width } = Dimensions.get('window')
 
@@ -129,16 +131,33 @@ export default class TakeMultiPhotos extends React.Component {
     return { length, offset: length * index, index }
   }
   
-  prepareCallback = () => {
+  prepareCallback = async() => {
     let { selected, photos } = this.state
+    let imageUrlArray = [];
     const selectedPhotos = selected.map(i => photos[i])
     // console.log(selectedPhotos)
-    
-    const assetsInfo = Promise.all(selectedPhotos.map(i => MediaLibrary.getAssetInfoAsync(i)))
-    this.props.callback(assetsInfo)
-    // console.log(assetsInfo)
-    // this.props.navigation.navigate("NewPost", { image: selectedPhotos[0].uri});
+    for (let i = 0; i<selectedPhotos.length;i++){
+      var appleId = selectedPhotos[i].uri.substring(5, 41);
+      const ext = 'JPG';
+      var myDate = new Date(selectedPhotos[i].creationTime*1000)
+
+      
+
+      imageUrlArray.push({
+        id:selectedPhotos[i].uri,
+        content:`assets-library://asset/asset.${ext}?id=${appleId}&ext=${ext}`,
+        createdAt: myDate.toUTCString()
+      })
+     
+    }
+    console.log(imageUrlArray)
+    this.props.navigation.navigate("NewPost", { image: imageUrlArray});
   }
+    
+
+    // const assetsInfo = Promise.all(selectedPhotos.map(i => MediaLibrary.getAssetInfoAsync(i)))
+    // this.props.callback(assetsInfo)
+  
 
   renderHeader = () => {
     let selectedCount = this.state.selected.length
@@ -156,7 +175,7 @@ export default class TakeMultiPhotos extends React.Component {
           <Button
             color={headerButtonColor}
             title={headerCloseText}
-            onPress={() => this.props.callback(Promise.resolve([]))}
+            onPress={() => this.props.navigation.pop()}
           />
           <Text style={styles.headerText}>{headerText}</Text>
           <Button
