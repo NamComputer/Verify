@@ -9,12 +9,11 @@ import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 
 const UPLOAD = gql`
-  mutation AddTodo($id:ID!,$content: String!, $caption: String!, $createdAt: DateTime!) {
+  mutation AddTodo($content: String!, $name: String!, $caption: String!) {
     uploadCV(uploadCVInput: {
-      id: $id,
       content: $content,
-      caption: $caption,
-      createdAt: $createdAt
+      name: $name,
+      caption: $caption
     }) {
       id
       name 
@@ -58,8 +57,8 @@ export default function NewPostScreen ({navigation,route}) {
         onSubmit={async (value) => {
           try{
            await uploadCV({ uploadCVInput:{
-            id: id,
             content: image,
+            name: value,
             caption: value,
            }
           })}catch(error){
