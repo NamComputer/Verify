@@ -141,8 +141,6 @@ export default class TakeMultiPhotos extends React.Component {
       const ext = 'JPG';
       var myDate = new Date(selectedPhotos[i].creationTime*1000)
 
-      
-
       imageUrlArray.push({
         id:selectedPhotos[i].uri,
         content:`assets-library://asset/asset.${ext}?id=${appleId}&ext=${ext}`,

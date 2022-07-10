@@ -8,30 +8,30 @@ import { FlatList } from 'react-native-gesture-handler';
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 
-// const UPLOAD = gql`
-//   mutation AddTodo($id:ID!,$content: String!, $caption: String!, $createdAt: DateTime!) {
-//     uploadCV(uploadCVInput: {
-//       id: $id,
-//       content: $content,
-//       caption: $caption,
-//       createdAt: $createdAt
-//     }) {
-//       id
-//       name 
-//       content 
-//       createdAt
-//       caption
-//       updatedAt
-//       owner
-//       likes
-//       comments
-//     }
-//   }
-// `;
+const UPLOAD = gql`
+  mutation AddTodo($id:ID!,$content: String!, $caption: String!, $createdAt: DateTime!) {
+    uploadCV(uploadCVInput: {
+      id: $id,
+      content: $content,
+      caption: $caption,
+      createdAt: $createdAt
+    }) {
+      id
+      name 
+      content 
+      createdAt
+      caption
+      updatedAt
+      owner
+      likes
+      comments
+    }
+  }
+`;
 
 export default function NewPostScreen ({navigation,route}) {
 
-  // const [uploadcv, { data, loading, error }] = useMutation(UPLOAD);
+  const [uploadCV, { data, loading, error }] = useMutation(UPLOAD);
 
     const placeholderImage = 'https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg'
     const uploadPostSchema = Yup.object({
@@ -39,10 +39,10 @@ export default function NewPostScreen ({navigation,route}) {
       caption: Yup.string().max(10,'Caption has reached the limit')
     })
     const uploadNonImageUrlPostSchema = Yup.object({
-      caption: Yup.string().max(10,'Caption has reached the limit')
+      caption: Yup.string().max(100,'Caption has reached the limit')
     })
     
-    const {image} = route.params;
+    const {image, id} = route.params;
     const [thumbnailUrl, setThumbnailUrl] = useState(image)
     return (
       <View style={styles.container}>
@@ -55,7 +55,18 @@ export default function NewPostScreen ({navigation,route}) {
         {image != null ?
         <Formik
         initialValues={{caption:'', imageURL: ''}}
-        onSubmit={(value) => console.log(value)}
+        onSubmit={async (value) => {
+          try{
+           await uploadCV({ uploadCVInput:{
+            id: id,
+            content: image,
+            caption: value,
+           }
+          })}catch(error){
+            console.log(error)
+          }
+          
+        }}
         validationSchema={uploadNonImageUrlPostSchema}
         validateOnMount={true}
        >
@@ -74,7 +85,9 @@ export default function NewPostScreen ({navigation,route}) {
                 source={{uri:item.content}}/> 
               )}
             />
-            {/* source={{uri:`data:image/gif;base64,{item.content}`}} */}
+            <Image style={styles.image} 
+            source={{uri: `data:image/gif;base64,${image}`}} />
+          
             <TextInput placeholder='Write a caption...' 
             placeholderTextColor={Colors.hint} 
             multiline={true}

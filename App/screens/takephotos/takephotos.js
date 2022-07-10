@@ -9,7 +9,8 @@ import * as FileSystem from 'expo-file-system';
 
 
 const options = {
-  allowsEditing: true
+  allowsEditing: true,
+  //allowsMultipleSelection:true
 };
 
 export default class SelectPhotoScreen extends Component {
@@ -19,11 +20,22 @@ export default class SelectPhotoScreen extends Component {
     const status = await getPermission(Permissions.CAMERA_ROLL);
     if (status) {
       const result = await ImagePicker.launchImageLibraryAsync(options);
-     
+      var date = new Date().getDate(); //Current Date
+      var month = new Date().getMonth() + 1; //Current Month
+      var year = new Date().getFullYear(); //Current Year
+      var hours = new Date().getHours(); //Current Hours
+      var min = new Date().getMinutes(); //Current Minutes
+      var sec = new Date().getSeconds(); //Current Seconds
+    
+      const currentDate = date + '/' + month + '/' + year + 'T' + hours + ':' + min + ':' + sec
+      
+      
       if (!result.cancelled) {
         
         const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
-        //this.props.navigation.navigate("NewPost", { image: result.uri });
+        this.props.navigation.navigate("NewPost", { image: base64,id: currentDate });
+        // console.log(result)
+        // console.log(currentDate)
       }
     }
   };
