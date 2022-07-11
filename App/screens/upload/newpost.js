@@ -20,10 +20,6 @@ const UPLOAD = gql`
       content 
       createdAt
       caption
-      updatedAt
-      owner
-      likes
-      comments
     }
   }
 `;
@@ -56,7 +52,7 @@ export default function NewPostScreen ({navigation,route}) {
         initialValues={{caption:'', imageURL: ''}}
         onSubmit={async (value) => {
           try{
-           await uploadCV({ uploadCVInput:{
+           await uploadCV({ variables:{
             content: image,
             name: value,
             caption: value,
