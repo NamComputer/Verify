@@ -20,10 +20,6 @@ const UPLOAD = gql`
       content 
       createdAt
       caption
-      updatedAt
-      owner
-      likes
-      comments
     }
   }
 `;
