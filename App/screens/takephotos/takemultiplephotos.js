@@ -149,7 +149,7 @@ export default class TakeMultiPhotos extends React.Component {
      
     }
     console.log(imageUrlArray)
-    this.props.navigation.navigate("NewPost", { image: imageUrlArray});
+    this.props.navigation.navigate("NewPost", { image: imageUrlArray,length:imageUrlArray.length});
   }
     
 

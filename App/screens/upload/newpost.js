@@ -18,7 +18,6 @@ const UPLOAD = gql`
       id
       name 
       content 
-      createdAt
       caption
     }
   }
@@ -37,7 +36,7 @@ export default function NewPostScreen ({navigation,route}) {
       caption: Yup.string().max(100,'Caption has reached the limit')
     })
     
-    const {image, id} = route.params;
+    const {image, id, length} = route.params;
     const [thumbnailUrl, setThumbnailUrl] = useState(image)
     return (
       <View style={styles.container}>
@@ -54,8 +53,8 @@ export default function NewPostScreen ({navigation,route}) {
           try{
            await uploadCV({ variables:{
             content: image,
-            name: value,
-            caption: value,
+            name: "Test",
+            caption: value.caption,
            }
           })}catch(error){
             console.log(error)
@@ -71,7 +70,9 @@ export default function NewPostScreen ({navigation,route}) {
             
             {/* <Image style={styles.image} 
             source={{uri:thumbnailUrl ? thumbnailUrl : placeholderImage}}/> */}
-            <FlatList 
+            
+      
+            {/* <FlatList 
               horizontal={true}
               data={image}
               keyExtractor={item => item.id}
@@ -80,9 +81,10 @@ export default function NewPostScreen ({navigation,route}) {
                 source={{uri:item.content}}/> 
               )}
             />
+             */}
             <Image style={styles.image} 
             source={{uri: `data:image/gif;base64,${image}`}} />
-          
+              
             <TextInput placeholder='Write a caption...' 
             placeholderTextColor={Colors.hint} 
             multiline={true}

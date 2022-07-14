@@ -84,10 +84,12 @@ export function Login ({navigation}) {
       <View style={styles.footer}>
         <RectangleButton
             // title={'Login'}
-            onpress={async () => {
-              const result = await login({ variables: { username: user, password: password } })
-              await AsyncStorage.setItem("token", result.data.login.accessToken)
-              navigation.navigate('Main')
+              onpress={async () => {
+            if ( user != '' && password!= ""  ){
+                const result = await login({ variables: { username: user, password: password } })
+                await AsyncStorage.setItem("token", result.data.login.accessToken)
+                navigation.navigate('Main')
+              }
             }}
             buttonColor={Colors.button}
             title={loading ? 'Logging...' : 'Login'}
@@ -170,13 +172,13 @@ const styles = StyleSheet.create({
   },
   hyperLink: {
     color: Colors.button,
-    fontFamily: 'Arial',
+    // fontFamily: 'Arial',
     margin: 10,
     fontSize: 20,
   },
   notHyperLink: {
     color: Colors.notChosen,
-    fontFamily: 'Arial',
+    // fontFamily: 'Arial',
     margin: 10,
     fontSize: 20,
   },

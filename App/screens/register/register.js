@@ -119,7 +119,7 @@ const Register = ({navigation}) => {
                     placeholderTextColor={Colors.hint}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    onChangeText = {newUser => setNewUser(newUser)}
+                    onChangeText = {newUser == '' ? Alert.alert("Your Email is empty")  :  newUser => setNewUser(newUser)}
                     value={newUser}
                     />
                 </Item>
@@ -132,7 +132,7 @@ const Register = ({navigation}) => {
                     style={styles.input}
                     placeholder={'Password'}
                     //onChangeText={value => handleInputChange('password', value)}
-                    onChangeText = {newPassword => setNewPassword(newPassword) }
+                    onChangeText = {newPassword == '' ? Alert.alert("Your Password is empty") : setNewPassword(newPassword) }
                     placeholderTextColor={Colors.hint}
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -168,11 +168,12 @@ const Register = ({navigation}) => {
             <RectangleButton
                 onpress={async () => {
                   // handleSubmit()
+                if ( newUser != '' && newPassword!= ""  ){
                 await signup({ variables: { username: newUser, password: newPassword } })
                 // await AsyncStorage.setItem("token", result.data.login.accessToken)
                 // navigation.navigate('Main')
                 navigation.navigate('Login')
-                }}
+                }}}
                 buttonColor={Colors.button}
                 title={loading ? 'Registering...' : 'Register'}
                 recWidth={300}
