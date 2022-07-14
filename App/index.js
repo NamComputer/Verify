@@ -69,7 +69,7 @@ const Main = () => {
   return (
   <NavigationContainer>
     <Stack.Navigator 
-    // initialRouteName="Main"
+    initialRouteName="Main"
     options={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
       <Stack.Screen name="Main" component={BottomStackScreen}  options={{ headerShown: false }}/>

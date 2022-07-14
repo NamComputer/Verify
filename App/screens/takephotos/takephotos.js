@@ -8,10 +8,6 @@ import { ImageBroweser}  from 'expo-image-picker-multiple'
 import * as FileSystem from 'expo-file-system';
 
 
-const options = {
-  allowsEditing: true,
-  //allowsMultipleSelection:true
-};
 
 export default class SelectPhotoScreen extends Component {
   state = {};
@@ -19,7 +15,11 @@ export default class SelectPhotoScreen extends Component {
   _selectPhoto = async () => {
     const status = await getPermission(Permissions.CAMERA_ROLL);
     if (status) {
-      const result = await ImagePicker.launchImageLibraryAsync(options);
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        base64:true
+      });
       var date = new Date().getDate(); //Current Date
       var month = new Date().getMonth() + 1; //Current Month
       var year = new Date().getFullYear(); //Current Year
@@ -32,9 +32,9 @@ export default class SelectPhotoScreen extends Component {
       
       if (!result.cancelled) {
         
-        const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
-        this.props.navigation.navigate("NewPost", { image: base64,id: currentDate });
-        // console.log(result)
+        // const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
+        this.props.navigation.navigate("NewPost", { image: result.base64,id: currentDate });
+        //console.log(result)
         // console.log(currentDate)
       }
     }
@@ -83,9 +83,9 @@ export default class SelectPhotoScreen extends Component {
         <Text onPress={this._selectMultiplePhoto} style={styles.text}>
           Select Multiple Photos From Library
         </Text>
-        <Text onPress={this._next} style={styles.text}>
+        {/* <Text onPress={this._next} style={styles.text}>
           Select Photo From ImageURL
-        </Text>
+        </Text> */}
       </View>
     );
   }
