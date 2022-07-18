@@ -51,7 +51,7 @@ export default function NewPostScreen ({navigation,route}) {
         initialValues={{caption:'', imageURL: ''}}
         onSubmit={async (value) => {
           try{
-           await uploadCV({ variables:{
+           const result = await uploadCV({ variables:{
             content: image,
             name: "Test",
             caption: value.caption,
