@@ -18,7 +18,7 @@ const GET_DATA = gql`
 `;
 
 
-const [cvs, { data, loading, error }] = useQuery(GET_DATA);
+//const [cvs, { data, loading, error }] = useQuery(GET_DATA);
 
 
 export const POSTS = [
