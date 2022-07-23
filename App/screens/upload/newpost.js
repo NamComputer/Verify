@@ -23,6 +23,8 @@ const UPLOAD = gql`
   }
 `;
 
+
+
 export default function NewPostScreen ({navigation,route}) {
 
   const [uploadCV, { data, loading, error }] = useMutation(UPLOAD);

@@ -1,11 +1,30 @@
 import { USER } from "./users";
+import gql from 'graphql-tag'
+import { useQuery } from '@apollo/client'
 
+
+const GET_DATA = gql`
+  query{
+    cvs {
+        name
+        content
+        caption
+        owner {
+          id
+          username
+        }
+      }
+  }
+`;
+
+
+const [cvs, { data, loading, error }] = useQuery(GET_DATA);
 
 
 export const POSTS = [
     
     {
-        imageURL:'https://cdn.unenvironment.org/2022-03/field-ge4d2466da_1920.jpg',
+        imageURL:data.cvs.content,
         user:USER[0].user,
         likes:1,
         caption:'Checkout my CV',
@@ -22,7 +41,7 @@ export const POSTS = [
         ]
     },
     {
-        imageURL:'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg',
+        imageURL:data.cvs.content,
         user:USER[1].user,
         likes:1,
         caption:'Checkout my CV part2',
