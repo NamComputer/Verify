@@ -11,8 +11,8 @@ const windowHeight = Dimensions.get('window').height;
 const postFooterIcons = [
   {
     name:'Like',
-    imageURL:'https://img.icons8.com/fluency-systems-regular/48/000000/like--v1.png',
-    likedImageURL:'https://img.icons8.com/tiny-color/48/000000/experimental-like-tiny-color.png'
+    imageURL:'https://img.icons8.com/ios/344/approval.png',
+    likedImageURL:'https://img.icons8.com/office/344/approval.png'
   },
   {
     name:'Comment',
@@ -48,7 +48,7 @@ const Post = ({post}) => {
     }
   }
   
-  const [likes, setLikes] = useState(0)
+  const [likes, setLikes] = useState(4)
   const [preLikes, setPreLikes] = useState(likes)
   const [press, setPress] = useState(false)
   return (
@@ -68,9 +68,9 @@ const Post = ({post}) => {
                 imgStyle={styles.footerIcon} imgURL={postFooterIcons[0].imageURL}
               />}
             </TouchableOpacity>
-              <Icon 
+              {/* <Icon 
                 imgStyle={styles.footerIcon} imgURL={postFooterIcons[1].imageURL}
-              />
+              /> */}
               {/* <Icon 
                 imgStyle={styles.footerIcon} imgURL={postFooterIcons[2].imageURL}
               /> */}
@@ -83,8 +83,8 @@ const Post = ({post}) => {
           </View>
           <Likes post={post} like={likes} />
           <Caption post={post} />
-          <CommentsSection post={post} />
-          <Comments post={post} />
+          {/* <CommentsSection post={post} /> */}
+          {/* <Comments post={post} /> */}
        </View>
     </View>
   );

@@ -1,33 +1,15 @@
 import { USER } from "./users";
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/client'
 
 
-const GET_DATA = gql`
-  query{
-    cvs {
-        name
-        content
-        caption
-        owner {
-          id
-          username
-        }
-      }
-  }
-`;
-
-
-//const [cvs, { data, loading, error }] = useQuery(GET_DATA);
 
 
 export const POSTS = [
     
     {
-        imageURL:data.cvs.content,
+        imageURL:'https://www.topcv.vn/images/cv/screenshots/thumbs/cv-template-thumbnails-v1.2/basic_5.png?v=1.0.3',
         user:USER[0].user,
-        likes:1,
-        caption:'Checkout my CV',
+        likes:2,
+        caption:'Checkout my CV, please call me: 18001091',
         profile_picture:USER[0].image,
         comments:[
             {
@@ -41,10 +23,10 @@ export const POSTS = [
         ]
     },
     {
-        imageURL:data.cvs.content,
+        imageURL:'https://dxwd4tssreb4w.cloudfront.net/vcv/confidential/c4c87802f4cadd024416c22a12314e88.png?_=1645622482',
         user:USER[1].user,
-        likes:1,
-        caption:'Checkout my CV part2',
+        likes:12,
+        caption:'Checkout my CV, please contact me at abc@gmail.com',
         profile_picture:USER[1].image,
         comments:[
             {

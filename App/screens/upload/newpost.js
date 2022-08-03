@@ -69,12 +69,8 @@ export default function NewPostScreen ({navigation,route}) {
         {({handleBlur, handleChange, handleSubmit, values, errors, isValid}) => (
           <>
           <View style={styles.imageCaption}>
-            
-            {/* <Image style={styles.image} 
-            source={{uri:thumbnailUrl ? thumbnailUrl : placeholderImage}}/> */}
-            
-      
-            {/* <FlatList 
+          {image.length >= 1 ?
+            <FlatList 
               horizontal={true}
               data={image}
               keyExtractor={item => item.id}
@@ -82,11 +78,10 @@ export default function NewPostScreen ({navigation,route}) {
                 <Image style={styles.image} 
                 source={{uri:item.content}}/> 
               )}
-            />
-             */}
+            />:
             <Image style={styles.image} 
             source={{uri: `data:image/gif;base64,${image}`}} />
-              
+              }
             <TextInput placeholder='Write a caption...' 
             placeholderTextColor={Colors.hint} 
             multiline={true}
@@ -121,9 +116,7 @@ export default function NewPostScreen ({navigation,route}) {
         {({handleBlur, handleChange, handleSubmit, values, errors, isValid}) => (
           <>
           <View style={styles.imageCaption}>
-            <Image style={styles.image} 
-            source={{uri:thumbnailUrl ? thumbnailUrl : placeholderImage}}/>
-          
+            
             <TextInput placeholder='Write a caption...' 
             placeholderTextColor={Colors.hint} 
             multiline={true}
@@ -193,12 +186,12 @@ const styles = StyleSheet.create({
   image:{
     width:150,
     height:150,
-    marginBottom:10,
-    marginRight:20
+    marginBottom:100,
+    marginRight: -10
   },
   imageCaption:{
   flexDirection:'row',
-  justifyContent:'space-between'  
+  justifyContent:'space-between' ,
   },
   errors:{
     color:Colors.red,

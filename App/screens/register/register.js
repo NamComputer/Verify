@@ -10,10 +10,11 @@ import { useMutation } from '@apollo/client';
 
 
 const SIGNUP = gql`
-mutation AddtoRegister($username: String!, $password: String!){
+mutation AddtoRegister($username: String!, $password: String!, $email: String!){
   signup(signupInput: {
     username: $username,
-    password: $password
+    password: $password,
+    email:$email
   }) {
     id
     username
@@ -114,12 +115,12 @@ const Register = ({navigation}) => {
                   <Input
                     maxLength={30}
                     style={styles.input}
-                    placeholder={'Email Adress'}
+                    placeholder={'Email Address'}
                     //onChangeText={value => handleInputChange('email', value)}
                     placeholderTextColor={Colors.hint}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    onChangeText = {newUser == '' ? Alert.alert("Your Email is empty")  :  newUser => setNewUser(newUser)}
+                    onChangeText = {newUser => setNewUser(newUser)}
                     value={newUser}
                     />
                 </Item>
@@ -132,7 +133,7 @@ const Register = ({navigation}) => {
                     style={styles.input}
                     placeholder={'Password'}
                     //onChangeText={value => handleInputChange('password', value)}
-                    onChangeText = {newPassword == '' ? Alert.alert("Your Password is empty") : setNewPassword(newPassword) }
+                    onChangeText = {newPassword => setNewPassword(newPassword) }
                     placeholderTextColor={Colors.hint}
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -167,11 +168,8 @@ const Register = ({navigation}) => {
           <View style={styles.footer}>
             <RectangleButton
                 onpress={async () => {
-                  // handleSubmit()
                 if ( newUser != '' && newPassword!= ""  ){
-                await signup({ variables: { username: newUser, password: newPassword } })
-                // await AsyncStorage.setItem("token", result.data.login.accessToken)
-                // navigation.navigate('Main')
+                await signup({ variables: { username: newUser, password: newPassword, email: newUser } })
                 navigation.navigate('Login')
                 }}}
                 buttonColor={Colors.button}
@@ -188,23 +186,6 @@ const Register = ({navigation}) => {
 
 export default Register;
 
-//Error in here
-// export default graphql(
-//   gql`
-//       signup(signupInput: {
-//          username: $email,
-//          password: $password
-//        }) {
-//          id
-//          username
-//        }
-//   `,
-//   {
-//     props: ({ mutate }) => ({
-//       signup: (username, password) => mutate({ variables: { username, password } }),
-//     }),
-//   },
-// )(Register);
 
 const styles = StyleSheet.create({
   container: {

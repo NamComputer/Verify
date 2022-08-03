@@ -4,8 +4,6 @@ import { StyleSheet, Text, View,TouchableOpacity, Image } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import getPermission from "../../utils/getPermission";
-import { ImageBroweser}  from 'expo-image-picker-multiple'
-import * as FileSystem from 'expo-file-system';
 
 
 
@@ -77,11 +75,11 @@ export default class SelectPhotoScreen extends Component {
         <TouchableOpacity onPress={()=>this.props.navigation.pop()}>
             <Image style={styles.backArrow} source={require('../../assets/images/chevronleft.png')}/>
         </TouchableOpacity>
-        <Text onPress={this._selectPhoto} style={styles.text}>
+        {/* <Text onPress={this._selectPhoto} style={styles.text}>
           Select Photo From Library
-        </Text>
+        </Text> */}
         <Text onPress={this._selectMultiplePhoto} style={styles.text}>
-          Select Multiple Photos From Library
+          Select Photos From Library
         </Text>
         {/* <Text onPress={this._next} style={styles.text}>
           Select Photo From ImageURL
